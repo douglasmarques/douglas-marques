@@ -11,11 +11,10 @@ jobs:
       - checkout
       - run:
           command: ./gradlew buildDebug
+      - unit_tests
 
   unit_tests:
-    executor: android/android
 
     steps:
-      - checkout
       - run:
           command: ./gradlew testDebug
