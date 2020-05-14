@@ -3,21 +3,6 @@ version: 2.1
 orbs:
  android: circleci/android@0.2.0
 
-
-#
-# Workspace
-#
-workspace: &workspace
-             ~/code
-attach_workspace: &attach_workspace
-  attach_workspace:
-    at: *workspace
-persist_reports: &persist_reports
-  persist_to_workspace:
-    root: *workspace
-    paths:
-      - app/build/reports
-
 jobs:
   build:
     executor: android/android
@@ -35,20 +20,9 @@ jobs:
       - store_test_results:
           path: app/build/test-results/testDebugUnitTest
 
-  code_quality:
-    executor: android/android
-    steps:
-      - checkout
-      - *attach_workspace
-      - run:
-          name: Run lint
-          command: ./gradlew lintDebug
-      - *persist_reports
-
 workflows:
   version: 2
   build_and_test:
     jobs:
       - build
-      - code_quality
       - unit_test
