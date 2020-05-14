@@ -17,6 +17,7 @@ jobs:
     executor: android/android
 
     steps:
+      - checkout
       - run:
           command: ./gradlew testDebug
 
